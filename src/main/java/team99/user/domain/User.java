@@ -28,8 +28,9 @@ public class User {
     public User(String name) {
         this.name = name;
         /*this.createdAt = Instant.now().truncatedTo(ChronoUnit.MICROS);*/
-        this.createdAt = ((Long)(System.currentTimeMillis()*1000)).intValue();
-        this.updatedAt = ((Long)(System.currentTimeMillis()*1000)).intValue();
+        Double currentDateTime =  new Double ((double)(System.currentTimeMillis()*1e6));
+        this.createdAt = currentDateTime.intValue();
+        this.updatedAt = currentDateTime.intValue();
     }
     public User(Integer id, String name, Integer createdAt, Integer updatedAt) {
         this.id = id;
