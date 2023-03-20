@@ -2,7 +2,10 @@ package team99.user.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+
 @Entity
 @Table(name= "t_user")
 public class User {
@@ -13,10 +16,10 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "created_at" )
+    @Column(name = "created_at")
     private Integer createdAt;
 
-    @Column(name = "updated_at" )
+    @Column(name = "updated_at")
     private Integer updatedAt;
 
     public User() {
@@ -24,6 +27,9 @@ public class User {
     }
     public User(String name) {
         this.name = name;
+        /*this.createdAt = Instant.now().truncatedTo(ChronoUnit.MICROS);*/
+        this.createdAt = ((Long)(System.currentTimeMillis()*1000)).intValue();
+        this.updatedAt = ((Long)(System.currentTimeMillis()*1000)).intValue();
     }
     public User(Integer id, String name, Integer createdAt, Integer updatedAt) {
         this.id = id;

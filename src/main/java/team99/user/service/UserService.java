@@ -1,6 +1,10 @@
 package team99.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import team99.user.domain.User;
 import team99.user.dto.MultipleUserResponse;
@@ -26,10 +30,12 @@ public class UserService {
     private SingleUserResponse singleUserResponse;
 
 
-    public MultipleUserResponse getAllUsers()
+
+    public MultipleUserResponse getAllUsers(Integer pageNum, Integer pageSize)
     {
-        List<User> userList = userServiceRepository.findAll();
-        return multipleUserResponse.setMultipleUserResponse(userList);
+       Pageable userPageable = PageRequest.of(--pageNum, pageSize);
+        Page<User> userList = userServiceRepository.findAll(userPageable);
+        return multipleUserResponse.setMultipleUserResponse(userList.getContent());
 
     }
 
